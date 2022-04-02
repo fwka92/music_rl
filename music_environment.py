@@ -6,7 +6,6 @@ import gym
 import numpy as np
 import torch
 from gym import spaces
-from gym.core import ObsType, ActType
 from torch import nn
 
 from music_dataset import MusicDataset
@@ -107,7 +106,7 @@ class MusicEnvironment(gym.Env):
     def seed(self, seed: Optional[int] = None):
         np.random.seed(seed)
 
-    def step(self, action: ActType) -> Tuple[ObsType, float, bool, dict]:
+    def step(self, action):
         """
         :param action: The next mumidi token to add to the generated midi sample.
         :return: (observation, reward, done, info)
@@ -141,8 +140,7 @@ class MusicEnvironment(gym.Env):
         else:
             self.target_midi_sample = {i: self.target_midi_sample[i][1:] for i in range(self.token_dim)}
 
-    def reset(self, *, seed: Optional[int] = None, return_info: bool = False, options: Optional[dict] = None) -> Union[
-        ObsType, Tuple[ObsType, dict]]:
+    def reset(self, *, seed: Optional[int] = None, return_info: bool = False, options: Optional[dict] = None):
         """
         :param seed: The seed for the random number generator.
         :param return_info: Whether to return the observation and info.
