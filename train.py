@@ -218,7 +218,7 @@ class Net(nn.Module):
         if not isinstance(obs, torch.Tensor):
             obs = torch.tensor(obs, dtype=torch.float)
         batch = obs.shape[0]
-        logits = self.model(obs.view(batch, -1))
+        logits = self.model(obs.view(batch, -1).cuda())
         return logits, state
 
 
@@ -227,7 +227,7 @@ action_shape = env.action_space.shape or env.action_space.n
 net = Net(state_shape, action_shape)
 optim = torch.optim.Adam(net.parameters(), lr=1e-3)
 
-policy = tianshou.policy.DQNPolicy(net, optim, discount_factor=0.9, estimation_step=3, target_update_freq=320)
+policy = tianshou.policy.DQNPolicy(net, optim, discount_factor=0.9, estimation_step=3, target_update_freq=320).cuda()
 
 train_collector = tianshou.data.Collector(policy, train_envs, tianshou.data.VectorReplayBuffer(20000, 10), exploration_noise=True)
 test_collector = tianshou.data.Collector(policy, test_envs, exploration_noise=True)
