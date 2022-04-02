@@ -255,6 +255,7 @@ for i in tqdm(range(int(1e6))):  # total step
 
     if i % save_every == 0:
         torch.save(policy.state_dict(), 'dqn.pth')
+        torch.save(policy.state_dict(), '/content/drive/MyDrive/dqn.pth')
 
     # train policy with a sampled batch data from buffer
     losses = policy.update(64, train_collector.buffer)
