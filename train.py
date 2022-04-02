@@ -3,25 +3,13 @@ Implement a PPO training on MusicEnvironment and MusicDataset using Pytorch and 
 with deep learning.
 """
 
-import argparse
-import os
-import sys
-import time
-
 import numpy as np
 import tianshou
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
-import torch.optim as optim
-from torch.utils.data import DataLoader
-from torch.utils.tensorboard import SummaryWriter
 from tqdm import tqdm
 
 from music_dataset import MusicDataset
-from tianshou.data.batch import Batch
-from tianshou.trainer import offpolicy_trainer
-
 # build a super complex neural network using attention blocks and residual blocks
 from music_environment import MusicEnvironment
 
