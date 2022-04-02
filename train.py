@@ -241,7 +241,7 @@ logger = TensorboardLogger(writer)
 save_every = 10
 
 # pre-collect at least 5000 transitions with random action before training
-train_collector.collect(n_step=5000, random=True)
+train_collector.collect(n_step=500, random=True)
 
 policy.set_eps(0.1)
 for i in tqdm(range(int(1e6))):  # total step
@@ -258,7 +258,7 @@ for i in tqdm(range(int(1e6))):  # total step
 
     # train policy with a sampled batch data from buffer
     losses = policy.update(64, train_collector.buffer)
-    writer.add_scalar('loss', np.mean(losses), i)
+    writer.add_scalar('loss', losses['loss'], i)
 
     # log some statistics
     writer.add_scalar('reward', collect_result['rews'].mean(), i)
